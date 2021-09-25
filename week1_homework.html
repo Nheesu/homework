@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <title>상품 페이지</title>
+    </head>
+    <style>
+        .total {
+            margin: auto;
+            width: 800px;
+        }
+
+        .product_part {
+            padding-bottom: 20px;
+        }
+
+        .product_name {
+            font-size: 35px;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .product_price {
+            font-size = 10px;
+            display: inline;
+            padding-left: 5px;
+        }
+
+        .product_info {
+            color: gray;
+        }
+
+        .form_title {
+            font-size: 35px;
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+
+        .buyer_info {
+            width: 100px;
+            display: inline;
+            padding-bottom: 10px;
+        }
+
+        .order_button {
+            text-align : center;
+            padding : 20px;
+        }
+
+    </style>
+    <script>
+        function order() {
+            alert ('주문이 완료되었습니다.')
+        }
+    </script>
+    <body>
+        <div class="total">
+            <div class="product_part">
+                <img src="https://www.stellamccartney.com/dw/image/v2/BCWD_PRD/on/demandware.static/-/Sites-master_catalog/default/dwf498fd6c/Assets/603759SPB112742_C/large/7/c/e/b/7ceb5bbf91e96f5b6279126eef29e42b00071362_603759SPB112742_C.jpg?sw=860&sh=1059"
+                     alt="wool_coat">
+                <br>
+                <div class="product_name"> 베이지 울 코트</div>
+                <div class="product_price">가격 : 398,000원 / 개</div>
+                <div class="product_info"> 울이 포함되어 포근함을 느낄 수 있는 베이지 코트입니다. 기타상품설명~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                </div>
+            </div>
+
+            <div>
+                <div class="form_title"> 주문하기</div>
+                <div class="form-row">
+                    <label class="buyer_info">주문자 성함 : </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="예) 홍길동">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="buyer_info">수량 : </label>
+                    <div class="col-sm-8">
+                        <select class="form-control">
+                            <option>수량을 선택하세요</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="buyer_info">주소 : </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="예) 서울시 성동구 아차산로 00길">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="buyer_info">전화번호 : </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="예) 010-1111-2222">
+                    </div>
+                </div>
+                <div class = "order_button">
+                    <button type="button" class="btn btn-primary" onclick = order()>주문하기</button>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
