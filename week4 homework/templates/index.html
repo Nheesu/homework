@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+        <!-- Font 설정 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+
+        <title>상품 페이지</title>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#order-info-box").html("");
+                showOrderinfo();
+            });
+
+            function makeOrder() {
+                let name = $('#order-name').val()
+                let count = $('#order-count').val()
+                let address = $('#order-address').val()
+                let phone = $('#order-phone').val()
+
+                if (name == '') {
+                    alert('주문자 이름을 입력해주세요.')
+                } else if (count == '') {
+                    alert('주문 수량을 선택해주세요.')
+                } else if (address == '') {
+                    alert('받으실 주소를 입력해주세요.')
+                } else if (phone == '') {
+                    alert('주문자 전화번호를 입력해주세요')
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/order",
+                    data: {
+                        name_give: name,
+                        count_give: count,
+                        address_give: address,
+                        phone_give: phone
+                    },
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            alert(response["msg"])
+                            window.location.reload()
+                        }
+
+                    }
+                })
+            }
+
+            function showOrderinfo() {
+                $.ajax({
+                    type: "GET",
+                    url: "/order",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            console.log(response['order_info'])
+                            let orders = response['order_info']
+                            console.log(response)
+                            for (let i = 0; i < orders.length; i++) {
+                                let order = orders[i]
+                                let name = order['name']
+                                let count = order['count']
+                                let address = order['address']
+                                let phone = order['phone']
+                                console.log(order)
+                                tempHtml = `
+                                     <tr>
+                                        <th scope="row">${i+1}</th>
+                                        <td>${name}</td>
+                                        <td>${count}</td>
+                                        <td>${address}</td>
+                                        <td>${phone}</td>
+                                    </tr>`
+                                $('#order-info-box').append(tempHtml)
+                            }
+                            console.log("리뷰를 받아왔다!")
+                        } else {
+                            alert("주문 정보를 받아오지 못했습니다.")
+                        }
+                    }
+                })
+            }
+        </script>
+        <style>
+            .total {
+                margin: auto;
+                width: 800px;
+                font-family: 'Nanum Myeongjo', serif;
+            }
+
+            .product_part {
+                width: 800px;
+                padding-bottom: 20px;
+                margin: auto;
+            }
+
+            .img {
+                background-image: url("http://img4.tmon.kr/cdn3/deals/2021/01/16/5150332858/front_3f105_wnsnn.jpg");
+                background-size: cover;
+                background-position: center;
+                width: 800px;
+            }
+
+            h2, h5 {
+                display: inline;
+                font-weight: bold;
+                padding-bottom: 10px;
+            }
+
+            .order_part {
+                width: 800px;
+                padding-botton: 10px;
+                margin: auto;
+            }
+
+            .order_button {
+                text-align: center;
+                padding: 10px;
+            }
+
+        </style>
+    </head>
+
+
+    <body>
+        <div class="total">
+            <div class="product_part">
+                <div class="img"></div>
+                <br>
+                <h2> 베이지 울 코트</h2>
+                <h5>가격 : 398,000원 / 개</h5>
+                <div><span style="color : gray"> 울이 포함되어 포근함을 느낄 수 있는 베이지 코트입니다. </span></div>
+            </div>
+
+            <div class="order_part">
+                <h2> 주문하기</h2>
+                <p></p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">주문자 성함</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="ex)홍길동" id="order-name">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">수량</label>
+                    </div>
+                    <select class="custom-select" id="order-count">
+                        <option selected>수량을 선택하세요.</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">주소</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="ex)서울시 00구 00로" id="order-address">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">전화번호</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="ex)010-0000-0000" id="order-phone">
+                </div>
+                <div class="order_button">
+                    <button onclick="makeOrder()" type="button" class="btn btn-primary">주문하기</button>
+                </div>
+            </div>
+            <p></p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">주문자 성함</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">주소</th>
+                    <th scope="col">전화번호</th>
+                </tr>
+                </thead>
+                <tbody id="order-info-box">
+                <tr>
+                    <th scope="row">1</th>
+                    <td>이름</td>
+                    <td>1</td>
+                    <td>서울시 성동구</td>
+                    <td>010-1111-2222</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+
+    </body>
+</html>
