@@ -73,16 +73,16 @@
                     data: {},
                     success: function (response) {
                         if (response["result"] == "success") {
-                            console.log(response['order_info'])
+                            // console.log(response['order_info'])
                             let orders = response['order_info']
-                            console.log(response)
+                            // console.log(response)
                             for (let i = 0; i < orders.length; i++) {
                                 let order = orders[i]
                                 let name = order['name']
                                 let count = order['count']
                                 let address = order['address']
                                 let phone = order['phone']
-                                console.log(order)
+                                //console.log(order)
                                 tempHtml = `
                                      <tr>
                                         <th scope="row">${i+1}</th>
@@ -93,7 +93,7 @@
                                     </tr>`
                                 $('#order-info-box').append(tempHtml)
                             }
-                            console.log("리뷰를 받아왔다!")
+                            // console.log("주문정보를 받아왔다!")
                         } else {
                             alert("주문 정보를 받아오지 못했습니다.")
                         }

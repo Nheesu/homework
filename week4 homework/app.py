@@ -30,13 +30,13 @@ def make_order():
         'address': address_receive,
         'phone': phone_receive
     }
-    print(order)
+    # print(order)
 
     # 2. DB에 정보 삽입하기
-    #db.orders.insert_one(order_info)
+    db.orders.insert_one(order)
 
     # 3. 성공 여부 & 성공 메시지 반환하기
-    return jsonify({'result': 'success', 'order_info': order, 'msg': 'POST 성공'})
+    return jsonify({'result': 'success', 'msg': 'POST 성공'})
 
 
 @app.route('/order', methods=['GET'])
